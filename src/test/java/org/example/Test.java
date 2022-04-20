@@ -115,14 +115,9 @@ public class Test
     @org.junit.Test
     public void PerfomanceProxyTest() {
         Calculator calculator = new CalculatorImpl();
-        Calculator calculatorProxy = (Calculator) Proxy.newProxyInstance(
-                calculator.getClass().getClassLoader(),
-                calculator.getClass().getInterfaces(),
-                new GetTimeHandler(calculator));
-        System.out.println(calculatorProxy.calc(3));
+        Calculator calculator1 = new PerfomanceProxy(calculator);
+        System.out.println(calculator1.calc(3));
 
             }
-
-
 
 }
