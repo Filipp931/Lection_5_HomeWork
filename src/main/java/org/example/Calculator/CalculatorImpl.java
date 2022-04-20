@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Calculator;
 
 public class CalculatorImpl implements Calculator{
     public static final String MONDAY = "MONDAY";

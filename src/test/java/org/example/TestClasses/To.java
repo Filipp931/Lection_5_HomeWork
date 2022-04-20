@@ -1,8 +1,8 @@
 package org.example.TestClasses;
 
 public class To {
-    private int a;
-    private int b;
+    private Integer a;
+    private Integer b;
     private int notInFrom;
     private boolean differentType;
 
@@ -25,7 +25,7 @@ public class To {
         return b;
     }
 
-    public void setB(int b) {
+    private void setB(int b) {
         this.b = b;
     }
 
@@ -46,6 +46,6 @@ public class To {
     }
     @Override
     public String toString() {
-        return new String(this.getClass().getName()+"a="+a+" b="+b+" notInFrom = " + notInFrom + " differentType =" + differentType);
+        return new String(this.getClass().getName()+" {a = "+a+"; b = "+b+"; notInFrom = " + notInFrom + "; differentType = " + differentType+";}");
     }
 }

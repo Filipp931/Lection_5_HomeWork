@@ -49,6 +49,6 @@ public class From {
 
     @Override
     public String toString() {
-        return new String(this.getClass().getName()+"a="+a+" b="+b+" notInTo = " + notInTo + " differentType =" + differentType);
+        return new String(this.getClass().getName()+" { a = "+a+"; b = "+b+"; notInTo = " + notInTo + "; differentType = " + differentType+";}");
     }
 }

@@ -66,7 +66,7 @@ public class BeansUtils {
     /**
      * Построение карты имени переменной, у которой public setter
      * @param obj
-     * @return Map<K,V> K - имя поля, которому соответствует public setter, V - сам setter
+     * @return Map<K,V>   K - имя поля, которому соответствует public setter, V - сам setter
      */
     public static Map<String, Field> getPublicSettersFieldsMap(Object obj){
         Map<String, Field> publicSettersFieldsMap = new HashMap<>();
@@ -92,16 +92,33 @@ public class BeansUtils {
 
     /**
      * Провка соответствия возвращаемого типа gettera типу переменной с названием fieldToName объекта to
-     * @param getterFrom
-     * @param fieldToName
-     * @param to
+     * @param getterFrom - метод, возвращаемый тип которого проверяется на совместимость с to.fieldToName
+     * @param fieldToName - имя поля объекта, которое проверяем на совместимость
+     * @param to - объект класса, поле которого проверяем на совместимость
      * @return true если getter() возвращает тип instance of to.fieldTo
      * @throws NoSuchFieldException если поле с названием fieldToName не найдено
      */
     public static boolean isCompatible(Method getterFrom, String fieldToName, Object to) throws NoSuchFieldException {
-        Class fromClass = getterFrom.getReturnType();
-        Class toClass = to.getClass().getDeclaredField(fieldToName).getType();
-        return fromClass.toString().equals(toClass.toString()) || toClass.isInstance(fromClass);
+        Class fromClass = getCorrectClassType(getterFrom.getReturnType());
+        Class toClass = getCorrectClassType(to.getClass().getDeclaredField(fieldToName).getType());
+        return toClass.isAssignableFrom(fromClass);
+    }
+
+    /**
+     * Получение класса обертки в случае примитива
+     * @param clazz
+     * @return класс-обертку, в случае примитива, либо clazz
+     */
+    public static Class getCorrectClassType(Class clazz){
+        Map<Class, Class> classes = new HashMap<>();
+        classes.put(int.class, Integer.class);
+        classes.put(boolean.class, Boolean.class);
+        classes.put(byte.class, Byte.class);
+        classes.put(char.class, Character.class);
+        classes.put(float.class, Float.class);
+        classes.put(long.class, Long.class);
+        classes.put(short.class, Short.class);
+        return classes.containsKey(clazz) ? classes.get(clazz) : clazz;
     }
 
     /**
