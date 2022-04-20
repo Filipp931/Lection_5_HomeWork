@@ -6,7 +6,6 @@ public class From {
     private int notInTo;
     private String differentType;
 
-
     public From(int a, int b, int notInTo, String differentType) {
         this.a = a;
         this.b = b;

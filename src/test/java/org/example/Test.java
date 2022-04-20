@@ -6,9 +6,10 @@ import static org.junit.Assert.assertTrue;
 import org.example.CachingProxy.CachingHandler;
 import org.example.Calculator.Calculator;
 import org.example.Calculator.CalculatorImpl;
+import org.example.PerformanceProxy.GetTimeHandler;
+import org.example.PerformanceProxy.PerfomanceProxy;
 import org.example.TestClasses.From;
 import org.example.TestClasses.To;
-import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -17,7 +18,7 @@ import java.lang.reflect.Proxy;
 /**
  * Unit test for ReflectionTestClass.
  */
-public class ReflectionTest
+public class Test
 {
     public final String testString = "testString";
 
@@ -33,7 +34,7 @@ public class ReflectionTest
      * BeansUtils test
      * ==============================================================
      */
-    @Test
+    @org.junit.Test
     public void assignTest(){
     From from = new From(213,654,90,"From");
         System.out.println("FROM"+from.toString());
@@ -47,7 +48,7 @@ public class ReflectionTest
 
 }
 
-    @Test
+    @org.junit.Test
     public void getCorrectClassTypeTest(){
         Class integer = int.class;
         Class bool = boolean.class;
@@ -55,29 +56,29 @@ public class ReflectionTest
                 BeansUtils.getCorrectClassType(bool) == Boolean.class);
     }
 
-    @Test
+    @org.junit.Test
     public void isModifierFinalTest() throws NoSuchFieldException {
-        Field field = ReflectionTest.class.getField("testString");
+        Field field = Test.class.getField("testString");
         assertTrue(ReflectionTestClass.isModifierFinal(field.getModifiers()));
     }
-    @Test
+    @org.junit.Test
     public void getFinalStringsValues() throws NoSuchFieldException {
-        ReflectionTest reflectionTest = new ReflectionTest();
-        Field field = ReflectionTest.class.getField("testString");
-        assertTrue(ReflectionTestClass.getFinalStringsFields(reflectionTest).contains(field));
+        Test test = new Test();
+        Field field = Test.class.getField("testString");
+        assertTrue(ReflectionTestClass.getFinalStringsFields(test).contains(field));
     }
-    @Test
+    @org.junit.Test
     public void getAllGettersMethods() throws NoSuchMethodException {
-        ReflectionTest reflectionTest = new ReflectionTest();
-        Method method = ReflectionTest.class.getMethod("getTestString");
-        assertTrue(ReflectionTestClass.getAllGettersMethods(reflectionTest).contains(method));
+        Test test = new Test();
+        Method method = Test.class.getMethod("getTestString");
+        assertTrue(ReflectionTestClass.getAllGettersMethods(test).contains(method));
     }
     /**
      * ==============================================================
      * Calculator tests
      * ==============================================================
      */
-    @Test
+    @org.junit.Test
     public void CalculatorFactorialTest()
     {
         Calculator calculator = new CalculatorImpl();
@@ -93,7 +94,7 @@ public class ReflectionTest
      * CachingProxy tests
      * ==============================================================
      */
-    @Test
+    @org.junit.Test
     public void CachingProxyTest(){
         Calculator calculator = new CalculatorImpl();
         Calculator cashedCalculator = (Calculator) Proxy.newProxyInstance(
@@ -106,7 +107,21 @@ public class ReflectionTest
         fact10cashed = cashedCalculator.calc(10);
         assertEquals(fact10, fact10cashed);
 }
+    /**
+     * ==============================================================
+     * PerfomanceProxy tests
+     * ==============================================================
+     */
+    @org.junit.Test
+    public void PerfomanceProxyTest() {
+        Calculator calculator = new CalculatorImpl();
+        Calculator calculatorProxy = (Calculator) Proxy.newProxyInstance(
+                calculator.getClass().getClassLoader(),
+                calculator.getClass().getInterfaces(),
+                new GetTimeHandler(calculator));
+        System.out.println(calculatorProxy.calc(3));
 
+            }
 
 
 

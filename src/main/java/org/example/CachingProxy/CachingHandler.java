@@ -16,7 +16,6 @@ public class CachingHandler implements InvocationHandler {
      */
     private class Сache<T> {
         private Map<Method, HashMap<Object[],T>> cache =  new HashMap();
-
         /**
          * Проверка наличия кэшированного значения для метода method(parameter)
          * @param method
@@ -71,7 +70,7 @@ public class CachingHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if(сache.containsCachedValue(method, args) ) {
             Object result = сache.getCachedValue(method, args);
-            System.out.println("Getting cash value   x" + method.toString() +" = " + result);
+            System.out.println("Getting cash value from cash " + method.toString() +" = " + result);
             return result;
         } else {
             Object result = method.invoke(delegate, args);

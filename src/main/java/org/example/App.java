@@ -23,6 +23,7 @@ public class App
         gettersMethods.forEach(getter -> System.out.println(getter.getName()));
         List<Field> listFields = getFinalStringsFields(calculator);
         listFields.forEach(x -> System.out.println(x.getName()));
+        
 
     }
 }
