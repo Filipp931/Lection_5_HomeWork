@@ -17,6 +17,10 @@ public class GetTimeHandler implements InvocationHandler {
         this.delegate = delegate;
     }
 
+    /**
+     * Выводим на экран время выполнения метода в наноскундех
+     * если он аннотирован Metric
+     */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if(method.isAnnotationPresent(Metric.class)){

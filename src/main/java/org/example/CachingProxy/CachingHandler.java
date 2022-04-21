@@ -66,6 +66,11 @@ public class CachingHandler implements InvocationHandler {
         сache = new Сache();
     }
 
+    /**
+     * Сохраняет имя метода, его аргументы и результат выполнения в кэш
+     * при повторном вызове метода проверяет, есть ли результат в кэше
+     * если есть, то возвращает кэшированный результат
+     */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if(сache.containsCachedValue(method, args) ) {

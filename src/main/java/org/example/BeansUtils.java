@@ -91,16 +91,16 @@ public class BeansUtils {
     }
 
     /**
-     * Провка соответствия возвращаемого типа gettera типу переменной с названием fieldToName объекта to
+     * Провка соответствия возвращаемого типа gettera типу переменной с названием getterFieldName объекта to
      * @param getterFrom - метод, возвращаемый тип которого проверяется на совместимость с to.fieldToName
-     * @param fieldToName - имя поля объекта, которое проверяем на совместимость
+     * @param getterFieldName - имя поля объекта, которое проверяем на совместимость
      * @param to - объект класса, поле которого проверяем на совместимость
      * @return true если getter() возвращает тип instance of to.fieldTo
      * @throws NoSuchFieldException если поле с названием fieldToName не найдено
      */
-    public static boolean isCompatible(Method getterFrom, String fieldToName, Object to) throws NoSuchFieldException {
+    public static boolean isCompatible(Method getterFrom, String getterFieldName, Object to) throws NoSuchFieldException {
         Class fromClass = getCorrectClassType(getterFrom.getReturnType());
-        Class toClass = getCorrectClassType(to.getClass().getDeclaredField(fieldToName).getType());
+        Class toClass = getCorrectClassType(to.getClass().getDeclaredField(getterFieldName).getType());
         return toClass.isAssignableFrom(fromClass);
     }
 
